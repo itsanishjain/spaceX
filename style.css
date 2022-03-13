@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;700&display=swap");
+
+* {
+  color: #fff;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+a,
+a:visited,
+a:hover {
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(230, 227, 227);
+}
+.section1 {
+  background: url(img/whitesmoke.png) no-repeat, #03174c;
+  background-position: bottom;
+  padding-bottom: 130px;
+  color: #fff;
+}
+
+h1 {
+  font-weight: 800;
+  font-size: 90px;
+}
+/* title stuff css  */
+.maindiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0px 200px;
+}
+
+.logo {
+  width: 50%;
+  margin-left: 60px;
+}
+
+.titlename {
+  margin-bottom: -30px;
+  margin-left: -3px;
+}
+
+.slogan {
+  font-size: 30px;
+  width: 500px;
+}
+
+.startbttn {
+  background-color: #3a5aff;
+  border: 0px;
+  padding: 10px 40px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.startbttn:hover {
+  background-color: #112aa5;
+  cursor: pointer;
+}

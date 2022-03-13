@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <!-- FA CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/logo.png" type="image/png">
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="speech.css">
+
+    <!-- WOW CSS -->
+    <link rel="stylesheet" href="css/animate.css">
+
+    <!-- Plotly JS -->
+    <script src="https://cdn.plot.ly/plotly-2.3.1.min.js"></script>
+
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet-src.js"></script>
+
+    <!-- D3 -->
+    <script src="https://unpkg.com/d3@5.15.0/dist/d3.min.js"></script>
+
+    <!-- leaflet-gpx -->
+    <script src="https://unpkg.com/leaflet-gpx@1.5.0/gpx.js"></script>
+
+    <!-- leaflet-elevation -->
+    <link rel="stylesheet" href="https://unpkg.com/@raruto/leaflet-elevation@1.0.1/dist/leaflet-elevation.css" />
+    <script src="https://unpkg.com/@raruto/leaflet-elevation@1.0.1/dist/leaflet-elevation.js"></script>
+
+
+    <!-- JS Pdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+    <!-- Title of Page -->
+    <title>SpeechUp</title>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    
+
+    <!-- Speech Section -->
+    <div class="container top-con">
+        <h1>Improve your Speech</h1>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <button id="record-btn" class="btn btn-primary bigbtn wow fadeIn" type="button" onclick="init()"
+                    style="display: flex; align-items: center; justify-content: center; margin: auto; padding: 12px 25px;">Start
+                    Recording</button>
+            </div>
+
+            <div class="row-xs-12 button_row" style="margin-top: 2%;">
+                <button id="stop-record-btn" class="btn btn-primary bigbtn" type="button" onclick="initstop()"
+                    style="display: none; align-items: center; justify-content: center; margin: auto; padding: 12px 25px;">Stop
+                    Recording</button>
+                <button id="transcript" class="btn btn-primary bigbtn" type="button" 
+                    style="display: none; align-items: center; justify-content: center; margin: auto; padding: 12px 25px;">Get Transcript</button>
+ 
+            </div>
+      
+        </div>
+
+        <div class="row" style="margin-top: 5%;">
+            
+                <canvas id="canvas" style="margin-right: 0; padding-right: 0; display: none;">
+                </canvas>
+        </div>
+
+        <div id="video_container">
+            <video autoplay="true" id="videoElement">
+        
+            </video>
+        </div>
+
+        <div class="report_container">
+        <div class="row" id="speech-report-div">
+            <h3 id="speech-report" style="display: none; font-size: 2rem;">
+                Speech Analysis Live Report
+            </h3>
+            <div class="col-xs-12 col-md-4">
+                <div id="pose_label-container" style="font-size: 1.1rem; font-weight: 700;"></div>
+            </div>
+
+            <div class="col-xs-12 col-md-4" style="font-size: 1.1rem; font-weight: 700;">
+                <div id="audio_label-container"></div>
+            </div>
+
+            <div class="col-xs-12 col-md-4" style="font-size: 1.1rem; font-weight: 700;">
+                <div id="image_label-container"></div>
+            </div>
+            <div class="col-xs-12 col-md-4" style="font-size: 1.1rem; font-weight: 700;">
+                <p id="wpmdisplay">WPM: 0</p>
+            </div>
+            <main>
+                <div id="result"></div>
+            </main>
+        </div></div>
+
+
+
+        <div class="rep_container">
+        <div class="row" id="speech-final-rep" style="margin-top: 4%; display: none;">
+            <p>
+                <strong>Posture Feedback</strong>: <span id="pose-rep"></span>
+                <br>
+                <strong>Voice Feedback</strong>: <span id="audio-rep"></span>
+                <br>
+                <strong>Fly Solo Feedback</strong>: <span id="image-rep"></span>
+            </p>
+            <p>
+                <strong>Total Speech Duration</strong>: <span id="time-rep"></span>
+            </p>
+            <div id="graph-div"
+                style="max-width:800px; max-height:300px; margin: auto; align-items: center; justify-items: center;">
+            </div>
+            <img id="jpg-export" style="display: none;" />
+            <button id="speech-report-btn"
+                style="max-width: 350px; margin: auto; align-items: center; justify-items: center;"
+                >Download Speech Report</button>
+        </div></div>
+    </div>
+
+    <!-- Speech Description -->
+        <div class="row feature">
+            <button type="button" class="collapsible">What can SpeechUp do?</button>
+            <div class="content">
+            <ul>
+                <li>Detect your posture</li>
+                <li>Detect your voice clearness</li>
+               <li>Detect your eye contact</li>
+                <li>Detect whether you are fumbling or not</li>
+               <li>Summarize it all in a speech report for you to study!</li>
+            </ul>
+            </div>
+    </div>
+
+    <!-- Footer -->
+    
+
+
+    <!-- Scroll to top arrow -->
+    <a href="javascript:" id="return-to-top"><i class="fa fa-angle-up" aria-hidden="true"
+            style="font-size: 30px;"></i></a>
+
+    <!-- JQuery JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+        integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+        crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+        integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+        crossorigin="anonymous"></script>
+
+    <!-- Tensor flow libraries -->
+    <script src="js/tensorflow/tf.min.js"></script>
+    <script src="js/tensorflow/teachablemachine-pose.min.js"></script>
+    <script src="js/tensorflow/speech-commands.min.js"></script>
+    <script src="js/tensorflow/teachablemachine-image.min.js"></script>
+
+    <script src="js/tensorflow/audiomodel.json" type="application/json"></script>
+    <script src="js/tensorflow/audiometadata.json" type="application/json"></script>
+    <script src="js/tensorflow/imagemodel.json" type="application/json"></script>
+    <script src="js/tensorflow/imagemetadata.json" type="application/json"></script>
+    <script src="js/tensorflow/posemodel.json" type="application/json"></script>
+    <script src="js/tensorflow/posemetadata.json" type="application/json"></script>
+
+    <!--my scripts -->
+    <script src="js/config.js"></script>
+    <script src="speech.js"></script>
+    
+
+    <script src="js/wow/wow.min.js"></script>
+    
+    <script type="text/javascript">
+        new WOW().init();
+
+        var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.display === "block") {
+                        content.style.display = "none";
+                    } else {
+                        content.style.display = "block";
+                    }
+                });
+            }
+        
+    </script>
+
+
+
+</body>
+
+</html>
